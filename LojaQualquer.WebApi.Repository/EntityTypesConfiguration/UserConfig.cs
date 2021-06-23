@@ -13,6 +13,10 @@ namespace LojaQualquer.WebApi.Repository.EntityTypesConfiguration
             builder.HasKey(e => e.Id);
 
             builder
+                .HasIndex(e => e.Email)
+                .IsUnique();
+
+            builder
                 .Property(e => e.Name)
                 .HasColumnName("Name")
                 .HasMaxLength(128)
@@ -36,14 +40,14 @@ namespace LojaQualquer.WebApi.Repository.EntityTypesConfiguration
                     Id = 1,
                     Name = "Administrador",
                     Email = "admin@lojaqualquer.com.br",
-                    Password = "123456"
+                    Password = "AQAAAAEAACcQAAAAEKfQncAI8gUDZY1Nf9lKu3+qeFRVkJgJMF3Ka3Ku/0eYJNOzkLgJmpRhQS/d71bV9Q=="
                 },
                 new User
                 {
                     Id = 2,
                     Name = "Usuario",
                     Email = "usuario@lojaqualquer.com.br",
-                    Password = "123456"
+                    Password = "AQAAAAEAACcQAAAAEHaDiz/ImdoZTlNaube3GYffTNAvsXtmZwmqLd6Xu5DV2qYnIm3UflL+Z9oSeMTnng=="
                 }
             );
         }

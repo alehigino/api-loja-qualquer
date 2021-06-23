@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LojaQualquer.WebApi.Domain\LojaQualquer.WebApi.Domain.csproj" />
     <ProjectReference Include="..\LojaQualquer.WebApi.Repository\LojaQualquer.WebApi.Repository.csproj" />
   </ItemGroup>

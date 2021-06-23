@@ -1,3 +1,5 @@
+using LojaQualquer.WebApi.Configuration;
+using LojaQualquer.WebApi.Domain.Models;
 using LojaQualquer.WebApi.Repository.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -6,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -23,6 +26,10 @@ namespace LojaQualquer.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var authorizeConfig = new AuthorizeConfig();
+            new ConfigureFromConfigurationOptions<AuthorizeConfig>(Configuration.GetSection("AuthorizeConfig")).Configure(authorizeConfig);
+            services.AddSingleton(authorizeConfig);
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -35,18 +42,21 @@ namespace LojaQualquer.WebApi
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey =
-                        new SymmetricSecurityKey(
-                            Encoding.ASCII.GetBytes(Configuration.GetSection("KeyToken").ToString())),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(authorizeConfig.Key)),
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = authorizeConfig.Audience,
+                    ValidIssuer =  authorizeConfig.Issuer
                 };
             });
 
-            services.AddControllers();
+            services.AddControllers(c => c.Filters.Add(new HttpResponseExceptionFilter()));
 
             services.AddDbContext<EntityContext>(o =>
                 o.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("Default")));
+
+            services.ConfigureService();
+            services.ConfigureRepository();
 
             services.AddSwaggerGen(c =>
             {
@@ -64,6 +74,8 @@ namespace LojaQualquer.WebApi
             }
 
             app.UseHttpsRedirection();
+
+            app.UseDeveloperExceptionPage();
 
             app.UseRouting();
 
