@@ -26,6 +26,7 @@ namespace LojaQualquer.WebApi.Repository.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            ApplyEntityConfiguration(model);
         }
 
         private void ApplyEntityConfiguration(ModelBuilder modelBuilder)
