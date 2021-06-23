@@ -11,12 +11,15 @@ namespace LojaQualquer.WebApi.Configuration
         public static void ConfigureService(this IServiceCollection services)
         {
             services.AddSingleton<IAuthorizeService, AuthorizeService>();
+
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IProductService, ProductService>();
         }
 
         public static void ConfigureRepository(this IServiceCollection services)
         {
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
         }
     }
 }

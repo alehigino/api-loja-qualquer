@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 
 namespace LojaQualquer.WebApi.Domain.Interfaces.Repositories
 {
-    public partial interface IRepository<TEntity> where TEntity : BaseEntity
+    public interface IProductRepository : IRepository<Product>
     {
-        Task InsertAsync(TEntity entity);
-        Task SaveChangesAsync();
+        Task<bool> CheckUsedName(string name);
     }
 }

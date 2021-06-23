@@ -2,6 +2,7 @@
 using LojaQualquer.WebApi.Domain.Interfaces.Repositories;
 using LojaQualquer.WebApi.Repository.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace LojaQualquer.WebApi.Repository.Repositories
 {
@@ -15,6 +16,16 @@ namespace LojaQualquer.WebApi.Repository.Repositories
         {
             Context = context;
             Entity = Context.Set<TEntity>();
+        }
+
+        public async Task InsertAsync(TEntity entity)
+        {
+            await Context.AddAsync(entity);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await Context.SaveChangesAsync();
         }
     }
 }
