@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LojaQualquer.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:LojaQualquer.WebApi.Controllers.LoginController">
+            <summary>
+            Login Controller
+            </summary>
+        </member>
+        <member name="M:LojaQualquer.WebApi.Controllers.LoginController.#ctor(LojaQualquer.WebApi.Domain.Interfaces.Services.ILoginService)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="loginService"></param>
+        </member>
+        <member name="M:LojaQualquer.WebApi.Controllers.LoginController.Login(LojaQualquer.WebApi.Domain.Models.Request.LoginRequest)">
+            <summary>
+            Check email and password and return token
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:LojaQualquer.WebApi.Controllers.ProductController">
+            <summary>
+            Product Controller
+            </summary>
+        </member>
+        <member name="M:LojaQualquer.WebApi.Controllers.ProductController.#ctor(LojaQualquer.WebApi.Domain.Interfaces.Services.IProductService)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="productService"></param>
+        </member>
+        <member name="M:LojaQualquer.WebApi.Controllers.ProductController.Post(LojaQualquer.WebApi.Domain.Models.Request.ProductCreateUpdateRequest)">
+            <summary>
+            Create a new product
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LojaQualquer.WebApi.Controllers.ProductController.GetById(System.Int32)">
+            <summary>
+            Get a product by id
+            </summary>
+            <param name="productId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LojaQualquer.WebApi.Controllers.ProductController.Put(System.Int32,LojaQualquer.WebApi.Domain.Models.Request.ProductCreateUpdateRequest)">
+            <summary>
+            Update a product
+            </summary>
+            <param name="productId"></param>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LojaQualquer.WebApi.Controllers.ProductController.Delete(System.Int32)">
+            <summary>
+            Delete a product
+            </summary>
+            <param name="productId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LojaQualquer.WebApi.Controllers.ProductController.GetByAll(LojaQualquer.WebApi.Domain.Models.Request.ProductFilterRequest)">
+            <summary>
+            Get products by filter
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

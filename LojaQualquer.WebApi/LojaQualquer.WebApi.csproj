@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-LojaQualquer.WebApi-C743F6F1-F73A-4472-8FCE-E151BA7BC2C7</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\_repos\loja-qualquer\LojaQualquer.WebApi\LojaQualquer.WebApi.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
