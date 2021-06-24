@@ -53,5 +53,22 @@ namespace LojaQualquer.WebApi.Controllers
         {
             return Ok(await _productService.GetByIdAsync(productId));
         }
+
+        /// <summary>
+        /// Update a product
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPut("{productId}")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400, Type = typeof(ResponseError))]
+        [ProducesResponseType(500, Type = typeof(ResponseError))]
+        public async Task<IActionResult> Put(int productId, [FromBody] ProductCreateUpdateRequest request)
+        {
+            await _productService.PutAsync(productId, request);
+            return Ok();
+        }
     }
 }

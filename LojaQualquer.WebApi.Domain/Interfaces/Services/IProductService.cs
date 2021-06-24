@@ -8,5 +8,6 @@ namespace LojaQualquer.WebApi.Domain.Interfaces.Services
     {
         Task<ProductCreateResponse> PostAsync(ProductCreateUpdateRequest request);
         Task<ProductResponse> GetByIdAsync(int productId);
+        Task PutAsync(int productId, ProductCreateUpdateRequest request);
     }
 }

@@ -8,5 +8,6 @@ namespace LojaQualquer.WebApi.Domain.Interfaces.Repositories
         Task InsertAsync(TEntity entity);
         Task SaveChangesAsync();
         Task<TEntity> GetByIdAsync(int id);
+        void Update(TEntity entity);
     }
 }

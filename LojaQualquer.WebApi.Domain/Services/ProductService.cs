@@ -41,9 +41,25 @@ namespace LojaQualquer.WebApi.Domain.Services
             return _mapper.Map<ProductResponse>(product);
         }
 
-        private async Task Validate(ProductCreateUpdateRequest request)
+        public async Task PutAsync(int productId, ProductCreateUpdateRequest request)
         {
-            var checkUsed = await _productRepository.CheckUsedName(request.Name);
+            var product = await _productRepository.GetByIdAsync(productId);
+
+            if (product == null) throw new BusinessException("Produto não encontrado.");
+
+            await Validate(request, productId);
+
+            product.Name = request.Name;
+            product.Category = (CategoryEnum)request.Category;
+            product.Price = request.Price;
+
+            _productRepository.Update(product);
+            await _productRepository.SaveChangesAsync();
+        }
+
+        private async Task Validate(ProductCreateUpdateRequest request, int? productId = null)
+        {
+            var checkUsed = await _productRepository.CheckUsedName(request.Name, productId);
 
             if (checkUsed) 
                 throw new BusinessException("Já existe um produto com este nome cadastrado.");

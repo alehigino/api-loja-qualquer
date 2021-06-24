@@ -10,9 +10,9 @@ namespace LojaQualquer.WebApi.Repository.Repositories
     {
         public ProductRepository(EntityContext context) : base(context) { }
 
-        public async Task<bool> CheckUsedName(string name)
+        public async Task<bool> CheckUsedName(string name, int? productId = null)
         {
-            return await Entity.AnyAsync(e => e.Name == name);
+            return await Entity.AnyAsync(e => e.Name == name && (!productId.HasValue || productId != e.Id));
         }
     }
 }

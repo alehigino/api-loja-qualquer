@@ -32,5 +32,10 @@ namespace LojaQualquer.WebApi.Repository.Repositories
         {
             return await Entity.FirstOrDefaultAsync(e => e.Id == id);
         }
+
+        public void Update(TEntity entity)
+        {
+            Context.Update(entity);
+        }
     }
 }
