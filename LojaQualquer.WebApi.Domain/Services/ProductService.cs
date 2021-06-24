@@ -34,18 +34,14 @@ namespace LojaQualquer.WebApi.Domain.Services
 
         public async Task<ProductResponse> GetByIdAsync(int productId)
         {
-            var product = await _productRepository.GetByIdAsync(productId);
-
-            if (product == null) throw new BusinessException("Produto não encontrado.");
+            var product = await GetProductAsync(productId);
 
             return _mapper.Map<ProductResponse>(product);
         }
 
         public async Task PutAsync(int productId, ProductCreateUpdateRequest request)
         {
-            var product = await _productRepository.GetByIdAsync(productId);
-
-            if (product == null) throw new BusinessException("Produto não encontrado.");
+            var product = await GetProductAsync(productId);
 
             await Validate(request, productId);
 
@@ -57,12 +53,29 @@ namespace LojaQualquer.WebApi.Domain.Services
             await _productRepository.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(int productId)
+        {
+            var product = await GetProductAsync(productId);
+
+            _productRepository.Delete(product);
+            await _productRepository.SaveChangesAsync();
+        }
+
         private async Task Validate(ProductCreateUpdateRequest request, int? productId = null)
         {
             var checkUsed = await _productRepository.CheckUsedName(request.Name, productId);
 
             if (checkUsed) 
                 throw new BusinessException("Já existe um produto com este nome cadastrado.");
+        }
+
+        private async Task<Product> GetProductAsync(int productId)
+        {
+            var product = await _productRepository.GetByIdAsync(productId);
+
+            if (product == null) throw new BusinessException("Produto não encontrado.");
+
+            return product;
         }
     }
 }

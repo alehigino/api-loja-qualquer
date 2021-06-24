@@ -37,5 +37,10 @@ namespace LojaQualquer.WebApi.Repository.Repositories
         {
             Context.Update(entity);
         }
+
+        public void Delete(TEntity entity)
+        {
+            Context.Remove(entity);
+        }
     }
 }

@@ -70,5 +70,21 @@ namespace LojaQualquer.WebApi.Controllers
             await _productService.PutAsync(productId, request);
             return Ok();
         }
+
+        /// <summary>
+        /// Delete a product
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        [HttpDelete("{productId}")]
+        [Authorize]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400, Type = typeof(ResponseError))]
+        [ProducesResponseType(500, Type = typeof(ResponseError))]
+        public async Task<IActionResult> Delete(int productId)
+        {
+            await _productService.DeleteAsync(productId);
+            return Ok();
+        }
     }
 }
