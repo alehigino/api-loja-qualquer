@@ -38,5 +38,20 @@ namespace LojaQualquer.WebApi.Controllers
         {
             return Ok(await _productService.PostAsync(request));
         }
+
+        /// <summary>
+        /// Get a product by id
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        [HttpGet("{productId}")]
+        [Authorize]
+        [ProducesResponseType(200, Type = typeof(ProductResponse))]
+        [ProducesResponseType(400, Type = typeof(ResponseError))]
+        [ProducesResponseType(500, Type = typeof(ResponseError))]
+        public async Task<IActionResult> GetById(int productId)
+        {
+            return Ok(await _productService.GetByIdAsync(productId));
+        }
     }
 }

@@ -32,6 +32,15 @@ namespace LojaQualquer.WebApi.Domain.Services
             return new ProductCreateResponse { ProductId = product.Id };
         }
 
+        public async Task<ProductResponse> GetByIdAsync(int productId)
+        {
+            var product = await _productRepository.GetByIdAsync(productId);
+
+            if (product == null) throw new BusinessException("Produto não encontrado.");
+
+            return _mapper.Map<ProductResponse>(product);
+        }
+
         private async Task Validate(ProductCreateUpdateRequest request)
         {
             var checkUsed = await _productRepository.CheckUsedName(request.Name);

@@ -7,5 +7,6 @@ namespace LojaQualquer.WebApi.Domain.Interfaces.Services
     public interface IProductService
     {
         Task<ProductCreateResponse> PostAsync(ProductCreateUpdateRequest request);
+        Task<ProductResponse> GetByIdAsync(int productId);
     }
 }

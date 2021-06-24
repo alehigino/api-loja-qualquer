@@ -27,5 +27,10 @@ namespace LojaQualquer.WebApi.Repository.Repositories
         {
             await Context.SaveChangesAsync();
         }
+
+        public async Task<TEntity> GetByIdAsync(int id)
+        {
+            return await Entity.FirstOrDefaultAsync(e => e.Id == id);
+        }
     }
 }
