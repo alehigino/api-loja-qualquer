@@ -3,6 +3,7 @@ using LojaQualquer.WebApi.Domain.Models.Request;
 using LojaQualquer.WebApi.Domain.Models.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LojaQualquer.WebApi.Controllers
@@ -85,6 +86,21 @@ namespace LojaQualquer.WebApi.Controllers
         {
             await _productService.DeleteAsync(productId);
             return Ok();
+        }
+
+        /// <summary>
+        /// Get products by filter
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize]
+        [ProducesResponseType(200, Type = typeof(IList<ProductResponse>))]
+        [ProducesResponseType(400, Type = typeof(ResponseError))]
+        [ProducesResponseType(500, Type = typeof(ResponseError))]
+        public async Task<IActionResult> GetByAll([FromQuery] ProductFilterRequest request)
+        {
+            return Ok(await _productService.GetByFilterAsync(request));
         }
     }
 }

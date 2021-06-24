@@ -5,6 +5,7 @@ using LojaQualquer.WebApi.Domain.Interfaces.Services;
 using LojaQualquer.WebApi.Domain.Models;
 using LojaQualquer.WebApi.Domain.Models.Request;
 using LojaQualquer.WebApi.Domain.Models.Response;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LojaQualquer.WebApi.Domain.Services
@@ -59,6 +60,11 @@ namespace LojaQualquer.WebApi.Domain.Services
 
             _productRepository.Delete(product);
             await _productRepository.SaveChangesAsync();
+        }
+
+        public async Task<IList<ProductResponse>> GetByFilterAsync(ProductFilterRequest request)
+        {
+            return _mapper.Map<IList<ProductResponse>>(await _productRepository.GetByFilter(request));
         }
 
         private async Task Validate(ProductCreateUpdateRequest request, int? productId = null)
